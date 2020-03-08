@@ -2,107 +2,83 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
- 	 <script src="./lib/js/angular.js"></script>
-  <link rel="stylesheet" href="./css/base.css">
-  <link rel="stylesheet" href="./css/index.css">
-  <title>张淦专用网站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>节日快乐</title>
+
+    <style>
+        body {
+            background-color: pink;
+            perspective: 1000px;
+        }
+
+        .picBox {
+
+            width: 250px;
+            height: 200px;
+            background: url("img/wukai.jpg") no-repeat center/cover;
+            margin: 180px auto;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 5s;
+        }
+
+        .dog {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .dog:nth-child(1) {
+            background: url("img/girl2.jpg") no-repeat center/cover;
+            transform: rotateY(0deg) translateZ(300px);
+        }
+
+        .dog:nth-child(2) {
+            background: url("img/girl3.jpg") no-repeat center/cover;
+            transform: rotateY(60deg) translateZ(300px);
+        }
+
+        .dog:nth-child(3) {
+            background: url("img/girl4.jpg") no-repeat center/cover;
+            transform: rotateY(120deg) translateZ(300px);
+        }
+
+
+        .dog:nth-child(4) {
+            background: url("img/girl5.jpg") no-repeat center/cover;
+            transform: rotateY(180deg) translateZ(300px);
+        }
+
+
+        .dog:nth-child(5) {
+            background: url("img/girl1.jpg") no-repeat center/cover;
+            transform: rotateY(240deg) translateZ(300px);
+        }
+
+
+        .dog:nth-child(6) {
+            background: url("img/girl6.jpg") no-repeat center/cover;
+            transform: rotateY(300deg) translateZ(300px);
+        }
+
+        .picBox:hover {
+
+            transform: rotateY(360deg);
+        }
+    </style>
 </head>
 
-
-<body ng-app='one'>
-
-
-  <section class="todoapp" ng-controller="two">
-    <header class="header">
-      <h1>麦香包子铺</h1>
-      <form ng-submit="doSubmit()">
-        <input class="new-todo" placeholder="列出你要完成的事项" autofocus ng-keypress='mykeyup($event)' ng-model="listItem">
-      </form>
-    </header>
-    <section class="main">
-      <input class="toggle-all" type="checkbox">
-      <ul class="todo-list">
-        <li ng-repeat="item in data" ng-class="{completed:item.isFinish}">
-          <div class="view">
-            <input class="toggle" type="checkbox"  ng-click="toggle(item.id,$event)">
-            <label>{{item.name}}</label>
-            <button class="destroy" ng-click="remove(item)"></button>
-          </div>
-          <input class="edit" value="Rule the web">
-        </li>
-      </ul>
-    </section>
-    <footer class="footer">
-      <span class="todo-count">还有<strong>{{count}}</strong>项未完成</span>
-      <button class="clear-completed" ng-click="clear()">清除已完成</button>
-    </footer>
-  </section>
-
+<body>
+    <div class="picBox">
+        <div class="dog"></div>
+        <div class="dog"></div>
+        <div class="dog"></div>
+        <div class="dog"></div>
+        <div class="dog"></div>
+        <div class="dog"></div>
+    </div>
 </body>
 
 </html>
-<script>
-  angular.module('one', [])
-
-    .controller('two', ['$scope', function ($scope) {
-      $scope.data = []
-      $scope.itemId = 0
-      $scope.count =0;
-      $scope.mykeyup = function (e) {
-        $scope.itemId++
-        if (e.keyCode == 13) {
-
-          if ($scope.listItem != '' && $scope.listItem != undefined) {
-            var obj = {
-              name: $scope.listItem,
-              id: $scope.itemId,
-              isFinish: false
-            }
-
-            $scope.data.push(obj)
-            $scope.listItem = ''
-          $scope.count ++            
-          }
-        }
-      }
-      $scope.remove = function (item) {
-        $scope.data.forEach((element, i) => {
-
-          if (item.id == element.id) {
-            if(element.isFinish == false){
-              $scope.count--
-            }
-            $scope.data.splice(i, 1)
-          }
-        });
-      }
-      $scope.toggle = function (id,e) {        
-        $scope.data.forEach((element, i) => {
-          if (id == element.id) {
-              if(e.target.checked){
-                 $scope.count--
-                  element.isFinish = true;
-              }else{
-                $scope.count++
-                 element.isFinish = false;
-              }
-
-          }
-        
-        });
-       }
-      $scope.clear = function() {
-        var arr =[]
-           $scope.data.forEach((element, i) => {           
-
-            if (element.isFinish == false) {
-                arr.push(element)
-            }
-            $scope.data = arr
-          });
-        }
-      }])
-</script>
